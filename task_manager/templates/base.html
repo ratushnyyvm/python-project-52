@@ -1,5 +1,4 @@
-{% load bootstrap4 %}
-{% load i18n %}
+{% load i18n bootstrap4 %}
 {% get_current_language as LANGUAGE_CODE %}
 
 {% bootstrap_css %}
@@ -7,54 +6,23 @@
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        {% bootstrap_css %}
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% translate 'Task manager' %}</title>
-    {% bootstrap_css %}
-</head>
+    <body class="d-flex flex-column min-vh-100">
+        <header>
+            {% include 'components/navbar.html' %}
+        </header>
 
-<body class="d-flex flex-column min-vh-100">
+        <main class="container mt-4">
+            {% include 'components/messages.html' %}
+            {% block content %}{% endblock %}
+        </main>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-
-        <a class="navbar-brand" href="{% url 'home' %}">{% translate 'Task manager' %}</a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarToggleExternalContent">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'users_index' %}">{% translate 'Users' %}</a>
-                </li>
-                
-            </ul>
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="/login/">Вход</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/users/create/">Регистрация</a>
-                </li>
-            </ul>
-
-        </div>
-
-    </nav>
-
-    <div class="container mt-4">
-        <h1>
-          {% block header %}
-          {% endblock %}
-        </h1>
-
-        {% block content %}
-        {% endblock %}
-    </div>
-
-</body>
+    </body>
 </html>

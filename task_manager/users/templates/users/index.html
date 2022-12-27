@@ -1,5 +1,35 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block header %}
-    Пользователи
+{% block content %}
+    <h1 class="my-4">Пользователи</h1>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <th>{% translate 'ID' %}</th>
+              <th>{% translate 'Username' %}</th>
+              <th>{% translate 'Full name' %}</th>
+              <th>{% translate 'Creation date' %}</th>
+              <th></th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.first_name }} {{ user.last_name }}</td>
+                <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm mb-1" role="button" aria-pressed="true" href="{% url 'user_update' user.id %}">Изменить</a>
+                    <br>
+                    <a class="btn btn-secondary btn-sm" role="button" aria-pressed="true" href="{% url 'user_delete' user.id %}">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
 {% endblock %}
